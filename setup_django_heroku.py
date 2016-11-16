@@ -65,9 +65,9 @@ file = file.replace(SECRET_KEY, "os.environ['SECRET_KEY']")
 with open(os.path.join(PROJECT_NAME, 'settings.py'), 'w') as f:
     f.write(file)
 with open(os.path.join('.env'), 'w') as f:
-    f.write("SECRET_KEY = {}".format(SECRET_KEY))
+    f.write("SECRET_KEY={}".format(SECRET_KEY))
 with open(os.path.join('.env.template'), 'w') as f:
-    f.write("SECRET_KEY = 'my-secret-key'")
+    f.write("SECRET_KEY='my-secret-key'")
 
 
 # append to settings file
@@ -104,3 +104,41 @@ with open(os.path.join(PROJECT_NAME, 'wsgi.py'), 'r') as f:
 if "application = DjangoWhiteNoise(application)" not in file:
     with open(os.path.join(PROJECT_NAME, 'wsgi.py'), 'a') as f:
         f.write("\n\nfrom whitenoise.django import DjangoWhiteNoise\napplication = DjangoWhiteNoise(application)\n")
+
+
+# write manage.py file that reads environment variables from .env
+with open('manage.py', 'w') as f:
+    f.write("""#!/usr/bin/env python
+import os
+import sys
+import re
+
+
+def read_env():
+    try:
+        with open('.env') as f:
+            content = f.read()
+    except IOError:
+        content = ''
+
+    for line in content.splitlines():
+        m1 = re.match(r'\A([A-Za-z_0-9]+)=(.*)\Z', line)
+        if m1:
+            key, val = m1.group(1), m1.group(2)
+            m2 = re.match(r"\A'(.*)'\Z", val)
+            if m2:
+                val = m2.group(1)
+            m3 = re.match(r'\A"(.*)"\Z', val)
+            if m3:
+                val = re.sub(r'\\(.)', r'\1', m3.group(1))
+            os.environ.setdefault(key, val)
+
+
+if __name__ == "__main__":
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "{}.settings")
+
+    from django.core.management import execute_from_command_line
+
+    read_env()
+    execute_from_command_line(sys.argv)
+""".format(PROJECT_NAME))

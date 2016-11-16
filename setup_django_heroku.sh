@@ -9,13 +9,13 @@ django-admin startproject "$1" .
 python manage.py makemigrations
 python manage.py migrate
 
-# create Django admin
-printf "\n\n********************\nLet's create an admin user for you:\n\n"
-python manage.py createsuperuser
-
 # add necessary Heroku files and settings
 python setup_django_heroku.py "$1"
 python manage.py collectstatic --noinput
+
+# create Django admin
+printf "\n\n********************\nLet's create an admin user for you:\n\n"
+python manage.py createsuperuser
 
 # create git repo, add first commit
 git init
