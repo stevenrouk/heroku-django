@@ -10,7 +10,7 @@ python manage.py makemigrations
 python manage.py migrate
 
 # create Django admin
-printf "\n\n********************\nLet's create an admin user for you:"
+printf "\n\n********************\nLet's create an admin user for you:\n\n"
 python manage.py createsuperuser
 
 # add necessary Heroku files and settings
@@ -24,9 +24,12 @@ git commit -m "first commit"
 
 # create Heroku app
 heroku create "$2"
-heroku git:remote -a "$2"
+
+# set Heroku config vars from the .env file
+while read -r line; do heroku config:set $line; done < '.env'
 
 # deploy!
+heroku git:remote -a "$2"
 git push heroku master
 heroku run python manage.py migrate
 heroku open

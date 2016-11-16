@@ -1,5 +1,6 @@
 import os
 import platform
+import re
 import sys
 
 PROJECT_NAME = sys.argv[1]
@@ -11,6 +12,7 @@ with open('.gitignore', 'w') as f:
 __pycache__
 db.sqlite3
 static
+.env
 """)
 
 
@@ -44,6 +46,28 @@ DATABASES = {
 
 DEBUG = True
 """)
+
+
+# remove 'debug=True' from settings
+with open(os.path.join(PROJECT_NAME, 'settings.py'), 'r') as f:
+    file = f.read()
+file = file.replace("# SECURITY WARNING: don't run with debug turned on in production!", "")
+file = file.replace("DEBUG = True", "")
+with open(os.path.join(PROJECT_NAME, 'settings.py'), 'w') as f:
+    f.write(file)
+
+
+# move secret key to secret_settings.py file
+with open(os.path.join(PROJECT_NAME, 'settings.py'), 'r') as f:
+    file = f.read()
+SECRET_KEY = re.findall('SECRET_KEY = (.+)\n', file)[0]
+file = file.replace(SECRET_KEY, "os.environ['SECRET_KEY']")
+with open(os.path.join(PROJECT_NAME, 'settings.py'), 'w') as f:
+    f.write(file)
+with open(os.path.join('.env'), 'w') as f:
+    f.write("SECRET_KEY = {}".format(SECRET_KEY))
+with open(os.path.join('.env.template'), 'w') as f:
+    f.write("SECRET_KEY = 'my-secret-key'")
 
 
 # append to settings file
