@@ -15,7 +15,7 @@ python manage.py createsuperuser
 
 # add necessary Heroku files and settings
 python setup_django_heroku.py "$1"
-python manage.py collectstatic
+python manage.py collectstatic --noinput
 
 # create git repo, add first commit
 git init
