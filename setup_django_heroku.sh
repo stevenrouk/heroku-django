@@ -26,7 +26,7 @@ git commit -m "first commit"
 heroku create "$2"
 
 # set Heroku config vars from the .env file
-while read -r line; do heroku config:set $line; done < '.env'
+while read line || [[ -n $line ]]; do heroku config:set $line; done < .env
 
 # deploy!
 heroku git:remote -a "$2"
