@@ -14,6 +14,13 @@ function setup_django_heroku {
         return 1
     fi
 
+    # check that the arg for the Heroku app name is a valid string of alphanum separated by single hyphens
+    if ! [[ "$2" =~ ^([a-z0-9]+[\-]{0,1}[a-z0-9]+)+$ ]]
+        then
+        echo "error: make sure your Heroku app name is only lowercase alphanum separated by single hyphens"
+        return 1
+    fi
+
     # setup virtual environment and install dependencies
     virtualenv venv && source venv/bin/activate
     pip install django dj-database-url gunicorn whitenoise
