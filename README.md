@@ -8,7 +8,7 @@ That's it.
 
 _(Note: This script does assume that you have Python, pip, virtualenv, and the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-command-line) installed. The script has only been tested in an Ubuntu 14.04 environment.)_
 
-_(Another Note: This script will create and activate a virtual environment for you, as well as create a git repo and add all files that should be in version control to a first commit.)
+_(Another Note: This script will create and activate a virtual environment for you, as well as create a git repo and add all files that should be in version control to a first commit.)_
 
 ---
 
