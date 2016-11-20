@@ -48,3 +48,5 @@ function setup_django_heroku {
 
     return 0
 }
+
+setup_django_heroku
