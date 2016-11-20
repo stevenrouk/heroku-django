@@ -16,7 +16,7 @@ source setup_django_heroku.sh mysite classy-penguin-91919
 
 ---
 
-## Some Notes:
+## Some Notes
 
 - Requirements: This script does assume that you have Python, pip, virtualenv, and the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-command-line) installed. The script has only been tested in an Ubuntu 14.04 environment.
 - Heroku app name: The script attempts to create a Heroku app with whatever name you provide, but the app name must be unique on Heroku or the script will fail. Try to come up with a name that you think no one else will have used before.
