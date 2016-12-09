@@ -51,6 +51,9 @@ function setup_django_heroku {
     git add -A
     git commit -m "first commit"
 
+    # create Heroku app
+    heroku create "$2"
+
     # set Heroku config vars from the .env file
     while read line || [[ -n $line ]]; do heroku config:set $line; done < .env
 
