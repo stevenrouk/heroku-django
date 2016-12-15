@@ -19,6 +19,10 @@ echo "error: make sure your Heroku app name is only lowercase alphanum separated
 return 1
 fi
 
+# remove heroku-django git repo and README.md to prepare for project's git repo
+sudo rm -r .git
+rm README.md
+
 # setup virtual environment and install dependencies
 virtualenv venv && source venv/bin/activate
 pip install django dj-database-url gunicorn whitenoise
@@ -60,3 +64,4 @@ heroku git:remote -a "$2"
 git push heroku master
 heroku run python manage.py migrate
 heroku open
+
