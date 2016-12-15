@@ -32,7 +32,7 @@ sudo apt-get install python-virtualenv
 sudo apt-get update
 sudo apt-get install git
 git config --global user.email "you@example.com"
-git config --global user.name "Steven Rouk"
+git config --global user.name "Your Name"
 ```
 
 ### If you don't have Heroku-CLI...
