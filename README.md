@@ -8,9 +8,9 @@ All you have to do is ```source setup_django_heroku.sh YOUR-PROJECT-NAME YOUR-HE
 
 ## Before You Get Started
 
-0.1) Make sure you have an account on [Heroku](https://www.heroku.com/).
-0.2) This script has only been testing on Ubuntu 14.04. Let me know if you test it on something different.
-0.3) I recommend installing the latest version of either Python 2.x or 3.x before you start.
+1) Make sure you have an account on [Heroku](https://www.heroku.com/).
+2) This script has only been testing on Ubuntu 14.04. Let me know if you test it on something different.
+3) I recommend installing the latest version of either Python 2.x or 3.x before you start.
 
 ### If you don't have pip...
 
